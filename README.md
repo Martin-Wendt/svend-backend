@@ -7,6 +7,8 @@
 
 Backend til vores svendestykke. 
 
+Swagger dokumentation: https://sitrepapi.azurewebsites.net/swagger/index.html
+
 Udvikler: 
 - Marc 
 - Martin
