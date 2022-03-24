@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SitrepAPI.AuthorizationHandlers.HasAccessHandler">
+    <Position X="1" Y="7" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuthorizationHandlers\HasAccessHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.AuthorizationHandlers.HasAccessRequirement">
+    <Position X="1" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuthorizationHandlers\HasAccessRequirement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SitrepAPI.Controllers.CasesController">
+    <Position X="33.75" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAgAgAoAAAAAEQABAAABgCAAAAAgAAAEAURIAAg=</HashCode>
+      <FileName>Controllers\CasesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_caseReposistory" />
+      <Field Name="_propertyMappingService" />
+      <Field Name="_propertyCheckerService" />
+      <Field Name="_mapper" />
+      <Field Name="_userInformationService" />
+      <Field Name="_authorizationHandler" />
+      <Field Name="_caseImageRepository" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SitrepAPI.Controllers.ImagesController">
+    <Position X="31" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gABAAAAAAAAAAAAAEAABAAgQAAAAAAAgEgBAAAABAQA=</HashCode>
+      <FileName>Controllers\ImagesController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_caseImageRepository" />
+      <Field Name="_caseRepository" />
+      <Field Name="_mapper" />
+      <Field Name="_authorizationService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SitrepAPI.Controllers.LogsController">
+    <Position X="28.25" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAABAAAAAAAAAAAgEAAQIQABAAA=</HashCode>
+      <FileName>Controllers\LogsController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_caseRepository" />
+      <Field Name="_caseLogRepository" />
+      <Field Name="_mapper" />
+      <Field Name="_authorizationService" />
+      <Field Name="_userInformationService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SitrepAPI.Controllers.PrioritiesController">
+    <Position X="24.75" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABABAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\PrioritiesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Controllers.StatusController">
+    <Position X="22.25" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAEAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\StatusController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.DbContexts.SitrepDbContext">
+    <Position X="21.25" Y="23" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEIAAAAAAEAAAAAAAEEAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbContexts\SitrepDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Entities.Case">
+    <Position X="6.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAcAAAgAEAEACIBAAgEAAAAABAAAAAAABAAAAA=</HashCode>
+      <FileName>Entities\Case.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Priority" />
+      <Property Name="Status" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Images" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SitrepAPI.Entities.CaseImage">
+    <Position X="6.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAgAAgAAAACAAAAQAAAAAABAAAQAAABAAAAA=</HashCode>
+      <FileName>Entities\CaseImage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Case" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SitrepAPI.Entities.CaseLog">
+    <Position X="10.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAAAAAACAAAAAAAAAAAAAAAAAAIBAAAAE=</HashCode>
+      <FileName>Entities\CaseLog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Entities.Priority">
+    <Position X="10.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Priority.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Entities.Status">
+    <Position X="10.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Status.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Helpers.ClaimsPricipalExtensions">
+    <Position X="18.5" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ClaimsPricipalExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Helpers.IEnumerableExtensions">
+    <Position X="24.25" Y="10.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\IEnumerableExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Helpers.IQueryableExtensions">
+    <Position X="22.25" Y="10.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\IQueryableExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Helpers.ObjectExtensions">
+    <Position X="20.75" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ObjectExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Helpers.PagedList&lt;T&gt;">
+    <Position X="20.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAABAAAAAAAAAAAAAAQAEAAAAAAFAAAAAI=</HashCode>
+      <FileName>Helpers\PagedList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Helpers.StringExtensions">
+    <Position X="18.5" Y="10.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Helpers\StringExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseDTO">
+    <Position X="0.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAIABAgAEAAACIRAJwEAAAIAAAAAAAAABAAAAE=</HashCode>
+      <FileName>Models\Case\CaseDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseForCreationDTO">
+    <Position X="2.5" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAIAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Case\CaseForCreationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseForUpdateDTO">
+    <Position X="2.5" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAgAEAAAAIBAAgEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Case\CaseForUpdateDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CasesReturnModel">
+    <Position X="4.5" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAgAAAAAAA=</HashCode>
+      <FileName>Models\Case\CasesReturnModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseImageDTO">
+    <Position X="6.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Image\CaseImageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseImageForUploadDTO">
+    <Position X="8.5" Y="16.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAABAAAQAAABAAAAA=</HashCode>
+      <FileName>Models\Image\CaseImageForUploadDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseImagesReturnModel">
+    <Position X="10.75" Y="16.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Models\Image\CaseImagesReturnModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseLogDTO">
+    <Position X="0.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAAAAAACAAAAAAAAAAAAAAAAAAIBAAAAE=</HashCode>
+      <FileName>Models\løg\CaseLogDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.CaseLogForCreationDTO">
+    <Position X="2.5" Y="16.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBAAAAA=</HashCode>
+      <FileName>Models\løg\CaseLogForCreationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.FilterOperation">
+    <Position X="21.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAIAA=</HashCode>
+      <FileName>Models\FilterOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.LinkDTO">
+    <Position X="0.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAgAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LinkDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.TelephoneDTO">
+    <Position X="17.25" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TelephoneDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.UserDTO">
+    <Position X="14" Y="19.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAAACAAAAAAAAAAAAQAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.Auth0.Auth0AccessTokenDTO">
+    <Position X="12.5" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAACAAACAAAAAAEAAAAQAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Auth0\Auth0AccessTokenDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.ProblemDetails.ProblemDetailConfiguration">
+    <Position X="22.25" Y="20.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProblemDetails\ProblemDetailConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Profiles.CaseImageProfile" Collapsed="true">
+    <Position X="0.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\CaseImageProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Profiles.CaseLogProfile" Collapsed="true">
+    <Position X="2.25" Y="23.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\CaseLogProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Profiles.CaseProfile" Collapsed="true">
+    <Position X="4" Y="24.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\CaseProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Profiles.PriorityProfile" Collapsed="true">
+    <Position X="0.5" Y="24.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\PriorityProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Profiles.StatusProfile" Collapsed="true">
+    <Position X="2.25" Y="24.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\StatusProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Profiles.UserProfile" Collapsed="true">
+    <Position X="4" Y="23.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Profiles\UserProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.ResourceParameters.CaseResourceParameters">
+    <Position X="6.5" Y="30.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ResourceParameters\CaseResourceParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.ResourceParameters.DefaultResourceParameters">
+    <Position X="6.5" Y="27" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QMCAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAEAAAgAA=</HashCode>
+      <FileName>ResourceParameters\DefaultResourceParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Services.BaseRepository">
+    <Position X="19" Y="24.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\BaseRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Services.CaseImageRepository">
+    <Position X="16.5" Y="27" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAEBAEAAAAAAAAAAAAAAAAAAABAAAgABAA=</HashCode>
+      <FileName>Services\CaseImageRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SitrepAPI.Services.CaseLogRepository">
+    <Position X="18.75" Y="27" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAABAAAAAAAAIAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\CaseLogRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SitrepAPI.Services.CaseRepository">
+    <Position X="21" Y="27" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAgAIABAgAAAABAgABgAEAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Services\CaseRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SitrepAPI.Services.PropertyCheckerService" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="27" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\PropertyCheckerService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SitrepAPI.Services.PropertyMapping&lt;TSource, TDestination&gt;" BaseTypeListCollapsed="true">
+    <Position X="28.25" Y="12.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\PropertyMapping.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SitrepAPI.Services.PropertyMappingService" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="28.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AGAAAAAAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Services\PropertyMappingService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SitrepAPI.Services.PropertyMappingValue">
+    <Position X="15.75" Y="23.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Services\PropertyMappingValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Services.UserInformationService" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="27" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAgBAAEAAAAAAAAAIAAAAgCAAAAAAgAAAAAIA=</HashCode>
+      <FileName>Services\UserInformationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SitrepAPI.Models.Auth0.Auth0UserDTO">
+    <Position X="27.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgACAQCACCAAAACAAAAwAAEAAAQAAAACAAAAAACA=</HashCode>
+      <FileName>Models\Auth0\Auth0UserDTO.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="UserMetadata" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Identities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="SitrepAPI.Models.Auth0.Identity">
+    <Position X="31" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAEAAEAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth0\Auth0UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.Auth0.Telephone">
+    <Position X="24" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth0\Auth0UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SitrepAPI.Models.Auth0.UserMetadata">
+    <Position X="24" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\Auth0\Auth0UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SitrepAPI.Services.ICaseImageRepository" Collapsed="true">
+    <Position X="33.75" Y="9.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAgAAEAAEAAAAAAAAAAAAAAAAAAABAAAgABAA=</HashCode>
+      <FileName>Services\ICaseImageRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SitrepAPI.Services.ICaseLogRepository" Collapsed="true">
+    <Position X="27.75" Y="9.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAIAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ICaseLogRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SitrepAPI.Services.ICaseRepository" Collapsed="true">
+    <Position X="30.75" Y="9.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAQIAAAAIAAAgAAAAAAgABgAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ICaseRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SitrepAPI.Services.IPropertyCheckerService" Collapsed="true">
+    <Position X="41.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IPropertyCheckerService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SitrepAPI.Services.IPropertyMapping" Collapsed="true">
+    <Position X="28.25" Y="14.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IPropertyMapping.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SitrepAPI.Services.IPropertyMappingService" Collapsed="true">
+    <Position X="41.25" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IPropertyMappingService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SitrepAPI.Services.IUserInformationService" Collapsed="true">
+    <Position X="41.5" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\IUserInformationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Microsoft.AspNetCore.Authorization.IAuthorizationService" Collapsed="true">
+    <Position X="32.25" Y="2" Width="5.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="AutoMapper.IMapper" Collapsed="true">
+    <Position X="27" Y="1.75" Width="4.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="SitrepAPI.Helpers.ResourceUriType">
+    <Position X="20.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAgAACAAA=</HashCode>
+      <FileName>Helpers\ResourceUriType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,1735 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SitrepAPI</name>
+    </assembly>
+    <members>
+        <member name="T:SitrepAPI.AuthorizationHandlers.HasAccessHandler">
+            <summary>
+            auth handler for HasAccesRequirement.
+            checks whether you are the creator of a case or you have 'manager' or 'operator' roles.
+            <returns>Task</returns>
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.AuthorizationHandlers.HasAccessHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext,SitrepAPI.AuthorizationHandlers.HasAccessRequirement,SitrepAPI.Entities.Case)">
+            <summary>
+            Validation of requirement
+            </summary>
+            <param name="context">Auth Context</param>
+            <param name="requirement">Requirement to pass</param>
+            <param name="resource">Case to validate against</param>
+            <returns>Task</returns>
+            <exception cref="T:System.ArgumentNullException">Null value provided to method</exception>
+        </member>
+        <member name="T:SitrepAPI.AuthorizationHandlers.HasAccessRequirement">
+            <summary>
+            HasAccess requirement, used in combination with 'HasAccessHandler' 
+            <see cref="T:SitrepAPI.AuthorizationHandlers.HasAccessHandler"/>
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Controllers.CasesController">
+            <summary>
+            API endpoint for cases methods: GET,PUT,POST,HEAD,OPTIONS,PATCH,DELETE
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.#ctor(SitrepAPI.Services.ICaseRepository,SitrepAPI.Services.IPropertyMappingService,SitrepAPI.Services.IPropertyCheckerService,AutoMapper.IMapper,SitrepAPI.Services.IUserInformationService,Microsoft.AspNetCore.Authorization.IAuthorizationService,SitrepAPI.Services.ICaseImageRepository,SitrepAPI.Services.ICaseLogRepository)">
+            <summary>
+            Contructor of the class
+            </summary>
+            <param name="caseReposistory">Case repository service</param>
+            <param name="propertyMappingService">Part of filter and selected fields operation</param>
+            <param name="propertyCheckerService">Part of filter and selected fields operation</param>
+            <param name="mapper">Mapping service that handlels model to model mapping</param>
+            <param name="userInformationService">Gets user information</param>
+            <param name="authorizationService">Authorization policy</param>
+            <param name="caseImageRepository">Image repository service</param>
+            <param name="caseLogRepository">Log repository service</param>
+            <exception cref="T:System.ArgumentNullException">If Dependency Injection fails.</exception>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.GetCases(SitrepAPI.ResourceParameters.CaseResourceParameters)">
+            <summary>
+            Gets a list of cases
+            </summary>
+            <param name="caseResourceParameters">Holds querystring parameters</param>
+            <returns cref="T:SitrepAPI.Models.CasesReturnModel">object with list of cases with HATEOAS links</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.GetCase(System.Int32,System.String)">
+            <summary>
+            Get a single case
+            </summary>
+            <param name="caseId">Id of case</param>
+            <param name="fields">Returned fields</param>
+            <returns cref="T:SitrepAPI.Models.CaseDTO">Case with HATEOAS links</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.PutCaseAsync(System.Int32,SitrepAPI.Models.CaseForUpdateDTO)">
+             <summary>
+             Update a single case
+             </summary>
+             <remarks>
+             Example of PUT request:
+             ```
+             {
+                 "userId": "userid",
+                 "title": "string",
+                 "location": "string",
+                 "description": "string",
+                 "priorityId": 0,
+                 "statusId": 0,
+                 "assigneeId": "string"
+            }
+             ```
+             </remarks>
+             <param name="caseId">Íd of case</param>
+             <param name="caseForUpdateDTO">Case object with wanted updates</param>
+             <returns>No Content</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.PostCase(SitrepAPI.Models.CaseForCreationDTO)">
+            <summary>
+            Create a new case
+            </summary>
+            <remarks>
+            Post api/Cases
+            ```
+            Example of case to create:
+            {
+                "title" : "wanted title",
+                "description" : "wanted description"
+                "location" : "wanted location"
+            }    
+            ```
+            </remarks>
+            <param name="caseForCreationDTO">Case to create</param>
+            <returns cref="T:SitrepAPI.Models.CaseDTO">Created case</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.PatchCaseAsync(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{SitrepAPI.Models.CaseForUpdateDTO})">
+            <summary>
+            Patch a user 
+            </summary>
+            <remarks>
+            Exsample of patch request:
+            ```
+            [
+                {
+                    "op" : "replace",
+                    "path" : "/title"
+                    "value" : "new title"
+                },
+                {
+                    "op" : "move",
+                    "from" : "/description"
+                    "path" : "/location"
+                }
+            ]
+            ```
+            </remarks>
+            <param name="caseId">Id of case</param>
+            <param name="jsonPatchDocument">Array of json patch operations</param>
+            <returns>204 No Content</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.DeleteCaseAsync(System.Int32)">
+            <summary>
+            Delete a case
+            </summary>
+            <param name="caseId">Id of case to delete</param>
+            <returns>204 No Contet</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.CasesController.GetUserOptions">
+            <summary>
+            Allowed methods
+            </summary>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="T:SitrepAPI.Controllers.ImagesController">
+            <summary>
+            Image Controller 
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Controllers.ImagesController.#ctor(SitrepAPI.Services.ICaseRepository,SitrepAPI.Services.ICaseImageRepository,AutoMapper.IMapper,Microsoft.AspNetCore.Authorization.IAuthorizationService,SitrepAPI.Services.IUserInformationService,SitrepAPI.Services.ICaseLogRepository)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="caseRepository">Case repository service</param>
+            <param name="caseImageRepository">CaseImage repository service</param>
+            <param name="mapper">AutoMapper</param>
+            <param name="authorizationService">Authorization policy</param>
+            <param name="userInformationService">User information service</param>
+            <param name="caseLogRepository">CaseLog repo service</param>
+            <exception cref="T:System.ArgumentNullException">If dependency injection fails to provide service</exception>
+        </member>
+        <member name="M:SitrepAPI.Controllers.ImagesController.GetImage(System.Int32)">
+            <summary>
+            Get a single Image
+            </summary>
+            <param name="imageId">Id of Image</param>
+            <returns></returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.ImagesController.UploadImage(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Upload image without caseid
+            </summary>
+            <param name="file">image to upload</param>
+            <returns>Id of case</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.ImagesController.UploadImageForCase(Microsoft.AspNetCore.Http.IFormFile,System.Int32)">
+            <summary>
+            Post a image to Case
+            </summary>
+            <param name="file">Image file</param>
+            <param name="caseId">Id of case</param>
+            <returns>200</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.ImagesController.DeleteCaseImageAsync(System.Int32)">
+            <summary>
+            Delete Image
+            </summary>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.ImagesController.GetUserOptions">
+            <summary>
+            Allowed methods
+            </summary>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="T:SitrepAPI.Controllers.LogsController">
+            <summary>
+            Controller for handling CaseLogs
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Controllers.LogsController.#ctor(AutoMapper.IMapper,SitrepAPI.Services.ICaseRepository,SitrepAPI.Services.ICaseLogRepository,Microsoft.AspNetCore.Authorization.IAuthorizationService,SitrepAPI.Services.IUserInformationService)">
+            <summary>
+            Constructor of controller
+            </summary>
+            <param name="mapper">AutoMapper</param>
+            <param name="caseRepository">Repository for Cases</param>
+            <param name="caseLogRepository">Respository for Logs</param>
+            <param name="authorizationService">Authorization policy</param>
+            <param name="userInformationService">User information service</param>
+            <exception cref="T:System.ArgumentNullException">If Dependenct fails to provide requested services</exception>
+        </member>
+        <member name="M:SitrepAPI.Controllers.LogsController.GetLogsAsync(System.Int32)">
+            <summary>
+            Get Logs for Case
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns>ActionResult with List of CaseLogDTO</returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.LogsController.PostLogAsync(SitrepAPI.Models.CaseLogForCreationDTO,System.Int32)">
+            <summary>
+            Create Log for case
+            </summary>
+            <param name="caseLogForCreation">log to create</param>
+            <param name="caseId">Id of case log is created for</param>
+            <returns></returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.LogsController.GetLogsOptions">
+            <summary>
+            Allowed methods
+            </summary>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="T:SitrepAPI.Controllers.PrioritiesController">
+            <summary>
+            Priorities controller
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Controllers.PrioritiesController.#ctor(SitrepAPI.DbContexts.SitrepDbContext)">
+            <summary>
+            Constructor of controller
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:SitrepAPI.Controllers.PrioritiesController.GetPriority">
+            <summary>
+            Gets List of Priorities
+            </summary>
+            <returns>List of <see cref="T:SitrepAPI.Entities.Priority"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.PrioritiesController.GetPriority(System.Int32)">
+            <summary>
+            Get single priority
+            </summary>
+            <param name="id">Id of priority</param>
+            <returns></returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.PrioritiesController.GetUserOptions">
+            <summary>
+            Allowed methods
+            </summary>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="T:SitrepAPI.Controllers.StatusController">
+            <summary>
+            Controller for Status
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Controllers.StatusController.#ctor(SitrepAPI.DbContexts.SitrepDbContext)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:SitrepAPI.Controllers.StatusController.GetStatus">
+            <summary>
+            Get list of status'
+            </summary>
+            <returns>List of <see cref="T:SitrepAPI.Entities.Status"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.StatusController.GetStatus(System.Int32)">
+            <summary>
+            Get single status
+            </summary>
+            <param name="id">Id of status</param>
+            <returns></returns>
+        </member>
+        <member name="M:SitrepAPI.Controllers.StatusController.GetUserOptions">
+            <summary>
+            Allowed methods
+            </summary>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="T:SitrepAPI.DbContexts.SitrepDbContext">
+            <summary>
+            Database context class
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.DbContexts.SitrepDbContext.Cases">
+            <summary>
+            Cases 
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.DbContexts.SitrepDbContext.CaseImages">
+            <summary>
+            CaseImages
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.DbContexts.SitrepDbContext.CaseLogs">
+            <summary>
+            CaseLogs
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.DbContexts.SitrepDbContext.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.DbContexts.SitrepDbContext.Priority">
+            <summary>
+            Priority
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.DbContexts.SitrepDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{SitrepAPI.DbContexts.SitrepDbContext})">
+            <summary>
+            constructor of class
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:SitrepAPI.DbContexts.SitrepDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Definitions to create database upon
+            </summary>
+            <param name="modelBuilder">Modelbilder factory</param>
+        </member>
+        <member name="T:SitrepAPI.Entities.Case">
+            <summary>
+            Case database entity
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.CaseId">
+            <summary>
+            Id of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.UserId">
+            <summary>
+            UserId of the person who created case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.Title">
+            <summary>
+            Title of the case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.Location">
+            <summary>
+            phisycal location of error descriped in case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.Description">
+            <summary>
+            Detailed desciption of error/case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.CreatedAt">
+            <summary>
+            Created datetime
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.PriorityId">
+            <summary>
+            Assigned PriorityId
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.Priority">
+            <summary>
+            Navigational property to assigned priority
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.StatusId">
+            <summary>
+            Assigned StatusId
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.Status">
+            <summary>
+            Navigational property to assigned status
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.AssigneeId">
+            <summary>
+            UserId of assigned person
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.Images">
+            <summary>
+            Navigational property of images related to case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Case.Logs">
+            <summary>
+            Navigational property of logs related to case
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Entities.Case.#ctor">
+            <summary>
+            Constructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Entities.CaseImage">
+            <summary>
+            CaseImage database entity
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.CaseImageId">
+            <summary>
+            Id of Image
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.CaseId">
+            <summary>
+            Id of case the image is related to
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.Case">
+            <summary>
+            Navigational property of related case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.Name">
+            <summary>
+            Name of image
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.Type">
+            <summary>
+            type/extension of Image
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.Image">
+            <summary>
+            image Byte array/ actual image
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.CreatedAt">
+            <summary>
+            Time of creation
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseImage.Size">
+            <summary>
+            size of image
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Entities.CaseImage.#ctor">
+            <summary>
+            Constructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Entities.CaseLog">
+            <summary>
+            CaseLog database entity
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseLog.CaseLogId">
+            <summary>
+            Id of Log
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseLog.CaseId">
+            <summary>
+            Id of case the log is related to
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseLog.CreatedAt">
+            <summary>
+            Time of creation
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseLog.CreatedById">
+            <summary>
+            Creator id of log
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseLog.CreatedBy">
+            <summary>
+            creator name of log
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.CaseLog.Message">
+            <summary>
+            Name of property changed
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Entities.CaseLog.#ctor">
+            <summary>
+            constructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Entities.Priority">
+            <summary>
+            Priority values
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Priority.PriorityId">
+            <summary>
+            Id of priority
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Priority.Name">
+            <summary>
+            Name of priority
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Entities.Priority.#ctor">
+            <summary>
+            Constructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Entities.Status">
+            <summary>
+            Status value
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Status.StatusId">
+            <summary>
+            Id of status
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Entities.Status.Name">
+            <summary>
+            Name of status
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Entities.Status.#ctor">
+            <summary>
+            Constructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Helpers.ClaimsPricipalExtensions">
+            <summary>
+            Static string extension method
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Helpers.ClaimsPricipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Removes Auth0 prefix from userId
+            </summary>
+            <param name="source">string</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:SitrepAPI.Helpers.IEnumerableExtensions">
+            <summary>
+            Static IEnumerable extension
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Helpers.IEnumerableExtensions.ShapeData``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Shaped object to only include wanted properties
+            </summary>
+            <typeparam name="TSource">IEnumerable object</typeparam>
+            <param name="source">object</param>
+            <param name="fields">fields to include</param>
+            <returns>IEnumerable of ExpandoObject</returns>
+            <exception cref="T:System.ArgumentNullException">Null values</exception>
+            <exception cref="T:System.Exception">Property not in object</exception>
+        </member>
+        <member name="T:SitrepAPI.Helpers.IQueryableExtensions">
+            <summary>
+            IQueryable extension
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Helpers.IQueryableExtensions.ApplySort``1(System.Linq.IQueryable{``0},System.String,System.Collections.Generic.Dictionary{System.String,SitrepAPI.Services.PropertyMappingValue})">
+            <summary>
+            Apply sort extension method
+            </summary>
+            <typeparam name="T">Type of object</typeparam>
+            <param name="source">Object itself</param>
+            <param name="orderBy">Orderby string</param>
+            <param name="mappingDictionary">Mapping dictionary that contains valid mappings</param>
+            <returns>IQueryable of T</returns>
+            <exception cref="T:System.ArgumentNullException">Null value exception</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Null value input exception</exception>
+            <exception cref="T:System.ArgumentException">Mapping key not found in <paramref name="mappingDictionary"/></exception>
+        </member>
+        <member name="M:SitrepAPI.Helpers.IQueryableExtensions.ApplyFilter``1(System.Linq.IQueryable{``0},System.String,System.Collections.Generic.Dictionary{System.String,SitrepAPI.Services.PropertyMappingValue})">
+            <summary>
+            Apply Filter extension method
+            </summary>
+            <typeparam name="T">Type of object</typeparam>
+            <param name="source">Object itself</param>
+            <param name="filterBy">filterby string</param>
+            <param name="mappingDictionary">Mapping dictionary that contains valid mappings</param>
+            <returns>IQueryable of T</returns>
+            <exception cref="T:System.ArgumentNullException">Null value exception</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Null value input exception</exception>
+            <exception cref="T:System.ArgumentException">Mapping key not found in <paramref name="mappingDictionary"/></exception>
+            <exception cref="T:Microsoft.AspNetCore.Http.BadHttpRequestException">Thrown when filtering fails</exception>
+        </member>
+        <member name="T:SitrepAPI.Helpers.ObjectExtensions">
+            <summary>
+            Object Extension
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Helpers.ObjectExtensions.ShapeData``1(``0,System.String)">
+            <summary>
+            Shapes data to only include wanted properties
+            </summary>
+            <typeparam name="TSource">Type of object</typeparam>
+            <param name="source">object to shape</param>
+            <param name="fields">fields/propertrie to include</param>
+            <returns>ExpandoObject</returns>
+            <exception cref="T:System.ArgumentNullException">Null input values</exception>
+            <exception cref="T:System.Exception">field/property wanted includes is not present</exception>
+        </member>
+        <member name="T:SitrepAPI.Helpers.PagedList`1">
+            <summary>
+            extension of list to include paging information
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:SitrepAPI.Helpers.PagedList`1.CurrentPage">
+            <summary>
+            Current page number
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Helpers.PagedList`1.TotalPages">
+            <summary>
+            number of total pages
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Helpers.PagedList`1.PageSize">
+            <summary>
+            The number of item a page can hold 
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Helpers.PagedList`1.TotalCount">
+            <summary>
+            Total amount of pages
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Helpers.PagedList`1.HasPrevious">
+            <summary>
+            Current list has previous page
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Helpers.PagedList`1.HasNext">
+            <summary>
+            Current page has next page
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Helpers.PagedList`1.#ctor(System.Collections.Generic.List{`0},System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="items">List to appened too</param>
+            <param name="count">number of items</param>
+            <param name="pageNumber">current page number</param>
+            <param name="pageSize">current page size</param>
+        </member>
+        <member name="M:SitrepAPI.Helpers.PagedList`1.Create(System.Linq.IQueryable{`0},System.Int32,System.Int32)">
+            <summary>
+            Static exstension method of List to create pagedlist 
+            </summary>
+            <param name="source">List to appened too</param>
+            <param name="pageNumber">Current page number</param>
+            <param name="pageSize">Current page size</param>
+            <returns></returns>
+        </member>
+        <member name="T:SitrepAPI.Helpers.ResourceUriType">
+            <summary>
+            Enum of Uri types
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Helpers.StringExtensions">
+            <summary>
+            String extensions
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Helpers.StringExtensions.RemoveWhiteSpaces(System.String)">
+            <summary>
+            Remove all whitespaces in string
+            </summary>
+            <param name="s">string to manipulate</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:SitrepAPI.Helpers.StringExtensions.FilterBySeperation(System.String)">
+            <summary>
+            Seperates filterBy string into 'Property Name', 'Operation' or 'Value'
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SitrepAPI.Migrations.caseImage_refactor2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO">
+            <summary>
+            Representation of access token needed to communicate with auth0 userinformation endpoint
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO.AccessToken">
+            <summary>
+            access token
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO.Scope">
+            <summary>
+            scope of token
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO.ExpiresIn">
+            <summary>
+            token expiration in seconds from retrival time
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO.TokenType">
+            <summary>
+            type of token
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO.CreatedAt">
+            <summary>
+            Creation time of token
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO.#ctor">
+            <summary>
+            constructor of class
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.Auth0.Auth0AccessTokenDTO.IsExpired">
+            <summary>
+            Is token expired
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseDTO">
+            <summary>
+            Date transfer object of a Case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.CaseId">
+            <summary>
+            Id of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.UserId">
+            <summary>
+            UserDTO of user
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.Title">
+            <summary>
+            Title of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.Location">
+            <summary>
+            Location of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.Description">
+            <summary>
+            Description of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.PriorityId">
+            <summary>
+            Priority Id of case
+            </summary>
+            
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.PriorityName">
+            <summary>
+            Priority name of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.StatusId">
+            <summary>
+            Status id of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.ImageCount">
+            <summary>
+            Amount of images uploaded to case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.CaseImages">
+            <summary>
+            Image related to case, contains only Id of image.
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.LogCount">
+            <summary>
+            Amount of logs related to case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.CreatedBy">
+            <summary>
+            UserId of the creator
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.StatusName">
+            <summary>
+            Status name of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.CreatedAt">
+            <summary>
+            Creation date of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.LatestChangeAt">
+            <summary>
+            Lastest change performed at
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.AssigneeId">
+            <summary>
+            UserId of assigned person
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseDTO.Assignee">
+            <summary>
+            User object of assignee
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.CaseDTO.#ctor">
+            <summary>
+            Constructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseForCreationDTO">
+            <summary>
+            Case for creation object
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForCreationDTO.Title">
+            <summary>
+            Title of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForCreationDTO.Location">
+            <summary>
+            Location of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForCreationDTO.Description">
+            <summary>
+            Description of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForCreationDTO.Images">
+            <summary>
+            Image ids that belongs to the case
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseForUpdateDTO">
+            <summary>
+            Representaion of Case object when updating/Put
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForUpdateDTO.UserId">
+            <summary>
+            UserDTO of user
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForUpdateDTO.Title">
+            <summary>
+            Title of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForUpdateDTO.Location">
+            <summary>
+            Location of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForUpdateDTO.Description">
+            <summary>
+            Description of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForUpdateDTO.PriorityId">
+            <summary>
+            Priority Id of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForUpdateDTO.StatusId">
+            <summary>
+            Status id of case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseForUpdateDTO.AssigneeId">
+            <summary>
+            UserId of Operator who is assigned to the case
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.CasesReturnModel">
+            <summary>
+            Representaion of object returned when requesting multiple cases
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CasesReturnModel.Value">
+            <summary>
+            List with returned cases
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CasesReturnModel.Links">
+            <summary>
+            Returned link for collection
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.FilterOperation">
+            <summary>
+            Filter operation seprator model
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.FilterOperation.PropertyName">
+            <summary>
+            Property name 
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.FilterOperation.Operator">
+            <summary>
+            Operator
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.FilterOperation.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.FilterOperation.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="propertyName">Property</param>
+            <param name="operator">Operator</param>
+            <param name="value">Value</param>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseImageDTO">
+            <summary>
+            Representation of CaseImage
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseImageDTO.CaseImageId">
+            <summary>
+            Id of CaseImage
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseImageForUploadDTO">
+            <summary>
+            Representation of CaseImage when uploaded
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseImageForUploadDTO.CaseId">
+            <summary>
+            Id of case image is related to
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseImageForUploadDTO.Name">
+            <summary>
+            Name of image
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseImageForUploadDTO.Image">
+            <summary>
+            Image in array of bytes
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseImageForUploadDTO.Type">
+            <summary>
+            Type/extention of image
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseImagesReturnModel">
+            <summary>
+            Representation of model when requesting multiple images
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.LinkDTO">
+            <summary>
+            Link object
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.LinkDTO.Href">
+            <summary>
+            Url for this operation
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.LinkDTO.Rel">
+            <summary>
+            relation of operation
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.LinkDTO.Method">
+            <summary>
+            http method
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.LinkDTO.#ctor(System.String,System.String,System.String)">
+            <summary>
+            constructor
+            </summary>
+            <param name="href">Url</param>
+            <param name="rel">relation to object</param>
+            <param name="method">http method</param>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseLogDTO">
+            <summary>
+            Representation of CaseLog.
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseLogDTO.CaseLogId">
+            <summary>
+            Id of Log
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseLogDTO.CaseId">
+            <summary>
+            Id of related Case
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseLogDTO.CreatedAt">
+            <summary>
+            Time of creation
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseLogDTO.CreatedBy">
+            <summary>
+            Creator
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseLogDTO.CreatedById">
+            <summary>
+            Creator id of log
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseLogDTO.Message">
+            <summary>
+            Name of property changed
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.CaseLogDTO.#ctor">
+            <summary>
+            constructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.CaseLogForCreationDTO">
+            <summary>
+            Create log DTO
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.CaseLogForCreationDTO.Message">
+            <summary>
+            Name of property changed
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.CaseLogForCreationDTO.#ctor">
+            <summary>
+            Contructor of class
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Models.TelephoneDTO">
+            <summary>
+            Class of telephone number
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.TelephoneDTO.Number">
+            <summary>
+            Telephone number
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Models.TelephoneDTO.#ctor(System.String)">
+            <summary>
+            constructor of class
+            </summary>
+            <param name="number">telephone number to set</param>
+        </member>
+        <member name="T:SitrepAPI.Models.UserDTO">
+            <summary>
+            Data transfor object of a User
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.UserDTO.Email">
+            <summary>
+            Email of user
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.UserDTO.Name">
+            <summary>
+            Name of user
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.UserDTO.Nickname">
+            <summary>
+            Nickname of user
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.UserDTO.Picture">
+            <summary>
+            Picture chosen by user
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Models.UserDTO.Telephone">
+            <summary>
+            Telephone numbers of user
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.ProblemDetails.ProblemDetailConfiguration">
+            <summary>
+            Configurations of custom exception => http responses
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.ProblemDetails.ProblemDetailConfiguration.ProblemDetailConfigurationExecution(Hellang.Middleware.ProblemDetails.ProblemDetailsOptions)">
+            <summary>
+            Exception to ProblemDetail mapping
+            </summary>
+            <param name="options">DI parameter</param>
+        </member>
+        <member name="T:SitrepAPI.Profiles.CaseImageProfile">
+            <summary>
+            Auto mapper profile
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Profiles.CaseImageProfile.#ctor">
+            <summary>
+            CaseImage mapping profiles
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Profiles.CaseLogProfile">
+            <summary>
+            Auto Mapper Profiles
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Profiles.CaseLogProfile.#ctor">
+            <summary>
+            CaseLog Mapping profiles
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Profiles.CaseProfile">
+            <summary>
+            Auto Mapper Profiles
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Profiles.CaseProfile.#ctor">
+            <summary>
+            Case mapping Profiles
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Profiles.PriorityProfile">
+            <summary>
+            Auto Mapper profiles
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Profiles.PriorityProfile.#ctor">
+            <summary>
+            Priority mapping profiles
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Profiles.StatusProfile">
+            <summary>
+            Auto Mapper profiles
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Profiles.StatusProfile.#ctor">
+            <summary>
+            Status mapping profile
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Profiles.UserProfile">
+            <summary>
+            Auto Mapper
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Profiles.UserProfile.#ctor">
+            <summary>
+            User mapping profiles
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.ResourceParameters.CaseResourceParameters">
+            <summary>
+            Case specific resource parameters
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.ResourceParameters.CaseResourceParameters.OrderBy">
+            <summary>
+            field(s) to orderby
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.ResourceParameters.DefaultResourceParameters">
+            <summary>
+            Query parameters class
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.ResourceParameters.DefaultResourceParameters.SearchQuery">
+            <summary>
+            string to search for
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.ResourceParameters.DefaultResourceParameters.PageNumber">
+            <summary>
+            Current pagenumber
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.ResourceParameters.DefaultResourceParameters.PageSize">
+            <summary>
+            Amount of items per page
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.ResourceParameters.DefaultResourceParameters.OrderBy">
+            <summary>
+            Field(s) to orderby, desc/asc
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.ResourceParameters.DefaultResourceParameters.Fields">
+            <summary>
+            field(s) to return
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.ResourceParameters.DefaultResourceParameters.Filter">
+            <summary>
+             {Propertyname}{Operation}{Value}
+             StatusId == 2
+             valid operations: == >= <![CDATA[<=]]> !=
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Services.BaseRepository">
+            <summary>
+            Base repository class
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.BaseRepository.#ctor(SitrepAPI.DbContexts.SitrepDbContext)">
+            <summary>
+            constructor
+            </summary>
+            <param name="context"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:SitrepAPI.Services.BaseRepository.Save">
+            <summary>
+            Save changes made to dbcontext
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Services.CaseImageRepository">
+            <summary>
+            Implementation of <see cref="T:SitrepAPI.Services.ICaseImageRepository"/>
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.#ctor(SitrepAPI.DbContexts.SitrepDbContext)">
+            <summary>
+            constructor of class
+            </summary>
+            <param name="context">DbContext</param>
+            <exception cref="T:System.ArgumentNullException">Dependency injection failure</exception>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.AddCaseImage(SitrepAPI.Entities.CaseImage,System.String)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseImageRepository.AddCaseImage(SitrepAPI.Entities.CaseImage,System.String)"/>
+            </summary>
+            <param name="caseImage">Image to add</param>
+            <param name="userId">Case id to adad iamge to</param>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.GetListOfCaseImagesIds(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseImageRepository.GetListOfCaseImagesIds(System.Int32)"/>
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns>List of int</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.GetCaseImage(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseImageRepository.GetCaseImage(System.Int32)"/>
+            </summary>
+            <param name="caseImageId">Id of image</param>
+            <returns><see cref="T:SitrepAPI.Entities.CaseImage"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.GetCaseImagesForCase(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseImageRepository.GetCaseImagesForCase(System.Int32)"/>
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns>List of <see cref="T:SitrepAPI.Entities.CaseImage"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.UpdateImageAsync(SitrepAPI.Entities.CaseImage,System.String)">
+            <summary>
+            Update image, does nothing <see cref="M:SitrepAPI.Services.ICaseRepository.UpdateCaseAsync(SitrepAPI.Entities.Case,System.String)"/>
+            </summary>
+            <param name="image"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.CaseImageExists(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseImageRepository.CaseImageExists(System.Int32)"/>
+            </summary>
+            <param name="caseImageId">Id of image</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseImageRepository.DeleteCaseImage(SitrepAPI.Entities.CaseImage)">
+            <summary>
+            Remove image from repo
+            </summary>
+            <param name="caseImage">caseImage to remove</param>
+        </member>
+        <member name="T:SitrepAPI.Services.CaseLogRepository">
+            <summary>
+            Implementation of <see cref="T:SitrepAPI.Services.ICaseLogRepository"/>
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseLogRepository.#ctor(SitrepAPI.DbContexts.SitrepDbContext,SitrepAPI.Services.IUserInformationService)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="context">DbContext</param>
+            <param name="userInformationService">User information service</param>
+            <exception cref="T:System.ArgumentNullException">Dependency injection failure</exception>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseLogRepository.AddCaseLog(SitrepAPI.Entities.CaseLog)">
+            <summary>
+            Add new log for case
+            </summary>
+            <param name="caseLog">Case to add</param>
+            <exception cref="T:System.ArgumentNullException">Null input</exception>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseLogRepository.GetLog(System.Int32)">
+            <summary>
+            Gets single log
+            </summary>
+            <param name="caseLogId">Id of log</param>
+            <returns>CaseLog</returns>
+            <exception cref="T:System.ArgumentNullException">Null input</exception>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseLogRepository.GetLogsForCase(System.Int32)">
+            <summary>
+            Gets all logs for a case
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns>List of <see cref="T:SitrepAPI.Entities.CaseLog"/></returns>
+        </member>
+        <member name="T:SitrepAPI.Services.CaseRepository">
+            <summary>
+            Implementation of Case repository service 
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.#ctor(SitrepAPI.DbContexts.SitrepDbContext,SitrepAPI.Services.IPropertyMappingService,AutoMapper.IMapper,SitrepAPI.Services.IUserInformationService)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="context">DbContext</param>
+            <param name="propertyMappingService">Propertymapping service</param>
+            <param name="mapper">Auto mapper</param>
+            <param name="userInformationService">User information service</param>
+            <exception cref="T:System.ArgumentNullException">Dependency injection failure</exception>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.GetCase(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.GetCase(System.Int32)"/>
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns><see cref="T:SitrepAPI.Entities.Case"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.CaseExists(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.CaseExists(System.Int32)"/>
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.AddCase(SitrepAPI.Entities.Case)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.AddCase(SitrepAPI.Entities.Case)"/>
+            </summary>
+            <param name="case">Case to add</param>
+            <exception cref="T:System.ArgumentNullException">Null input value</exception>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.GetCases(SitrepAPI.ResourceParameters.CaseResourceParameters,System.String)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.GetCases(SitrepAPI.ResourceParameters.CaseResourceParameters,System.String)"/>
+            </summary>
+            <param name="caseResourceParameters">Query parameters</param>
+            <param name="userId">Id of user</param>
+            <returns><see cref="T:SitrepAPI.Helpers.PagedList`1"/> of <see cref="T:SitrepAPI.Entities.Case"/></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.UpdateCaseAsync(SitrepAPI.Entities.Case,System.String)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.UpdateCaseAsync(SitrepAPI.Entities.Case,System.String)"/>
+            </summary>
+            <param name="case">Case to update</param>
+            <param name="userId">Id of performing user</param>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.Delete(SitrepAPI.Entities.Case)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.Delete(SitrepAPI.Entities.Case)"/>
+            </summary>
+            <param name="entityToDelete">object to delete</param>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.GetImageCount(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.GetImageCount(System.Int32)"/>
+            </summary>
+            <param name="caseId">Id of Case</param>
+            <returns>Int</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.CaseRepository.GetLogCount(System.Int32)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.ICaseRepository.GetLogCount(System.Int32)"/>
+            </summary>
+            <param name="caseId">Id of Case</param>
+            <returns></returns>
+        </member>
+        <member name="T:SitrepAPI.Services.ICaseImageRepository">
+            <summary>
+            Interface for CaseImage repository service
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.AddCaseImage(SitrepAPI.Entities.CaseImage,System.String)">
+            <summary>
+            Add single case to db
+            </summary>
+            <param name="caseImage">Image Id to add</param>
+            <param name="userId">Person who adds picture</param>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.GetCaseImage(System.Int32)">
+            <summary>
+            Get Image
+            </summary>
+            <param name="caseImageId">Image id</param>
+            <returns>list of int</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.GetCaseImagesForCase(System.Int32)">
+            <summary>
+            Get images for case
+            </summary>
+            <param name="caseId">Case Id</param>
+            <returns>List of <see cref="T:SitrepAPI.Entities.CaseImage"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.GetListOfCaseImagesIds(System.Int32)">
+            <summary>
+            Gets a list of CaseImages
+            </summary>
+            <param name="caseId">CaseId that images relate to</param>
+            <returns>List of <see cref="T:SitrepAPI.Entities.CaseImage"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.Save">
+            <summary>
+            Saves change to context
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.UpdateImageAsync(SitrepAPI.Entities.CaseImage,System.String)">
+            <summary>
+            update image with new properties
+            </summary>
+            <param name="image">imageDTO to update</param>
+            <param name="userId">id of updater</param>
+            <returns></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.CaseImageExists(System.Int32)">
+            <summary>
+            CaseImage Exsists in database
+            </summary>
+            <param name="caseImageId">Id of image</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseImageRepository.DeleteCaseImage(SitrepAPI.Entities.CaseImage)">
+            <summary>
+            Delete image with id
+            </summary>
+            <param name="caseImage">Id of image</param>
+        </member>
+        <member name="T:SitrepAPI.Services.ICaseLogRepository">
+            <summary>
+            Interface for CaseLog repository service
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseLogRepository.GetLogsForCase(System.Int32)">
+            <summary>
+            Get Logs for case
+            </summary>
+            <param name="caseId">Case Id</param>
+            <returns>List of <see cref="T:SitrepAPI.Entities.CaseLog"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseLogRepository.Save">
+            <summary>
+            Save changes made to DbContext
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseLogRepository.AddCaseLog(SitrepAPI.Entities.CaseLog)">
+            <summary>
+            Add caselog to case 
+            </summary>
+            <param name="caseLog">Log to add</param>
+        </member>
+        <member name="T:SitrepAPI.Services.ICaseRepository">
+            <summary>
+            Interface for Case repository service
+            /// </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.CaseExists(System.Int32)">
+            <summary>
+            Validate if case exsists in database
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.Delete(SitrepAPI.Entities.Case)">
+            <summary>
+            Delete case, Only shadow deletes
+            </summary>
+            <param name="entityToDelete">Case to delete</param>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.GetCase(System.Int32)">
+            <summary>
+            Get single case
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns><see cref="T:SitrepAPI.Entities.Case"/></returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.GetCases(SitrepAPI.ResourceParameters.CaseResourceParameters,System.String)">
+            <summary>
+            Get <see cref="T:SitrepAPI.Helpers.PagedList`1"/> of cases
+            </summary>
+            <param name="caseResourceParameters">resource parameters</param>
+            <param name="userId">Id of user to filter by, accepts null for all</param>
+            <returns><see cref="T:SitrepAPI.Helpers.PagedList`1"/> of cases</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.Save">
+            <summary>
+            Save changes made
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.UpdateCaseAsync(SitrepAPI.Entities.Case,System.String)">
+            <summary>
+            Update single case
+            </summary>
+            <param name="case">Id of case</param>
+            <param name="userId">UserId for validation</param>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.AddCase(SitrepAPI.Entities.Case)">
+            <summary>
+            Add single case
+            </summary>
+            <param name="case">Case to add</param>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.GetImageCount(System.Int32)">
+            <summary>
+            Gets count of images for case
+            </summary>
+            <param name="CaseId">Id of case</param>
+            <returns>Int</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.ICaseRepository.GetLogCount(System.Int32)">
+            <summary>
+            Gets count of logs for case
+            </summary>
+            <param name="caseId">Id of case</param>
+            <returns>Int</returns>
+        </member>
+        <member name="T:SitrepAPI.Services.IPropertyCheckerService">
+            <summary>
+            Interface for propertychecking
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.IPropertyCheckerService.TypeHasProperties``1(System.String)">
+            <summary>
+            properties to check for
+            </summary>
+            <typeparam name="T">Type of object</typeparam>
+            <param name="fields">properties to check for</param>
+            <returns></returns>
+        </member>
+        <member name="T:SitrepAPI.Services.IPropertyMapping">
+            <summary>
+            Marker interface
+            </summary>
+        </member>
+        <member name="T:SitrepAPI.Services.IPropertyMappingService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.IPropertyMappingService.GetPropertyMapping``2">
+            <summary>
+            Gets mapping from <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>
+            </summary>
+            <typeparam name="TSource">From object</typeparam>
+            <typeparam name="TDestination">To object</typeparam>
+            <returns>Dictionary of string, propermappingvalue</returns>
+            <exception cref="T:System.Exception">No valid mappings for <typeparamref name="TSource"/> to <typeparamref name="TDestination"/></exception>
+        </member>
+        <member name="M:SitrepAPI.Services.IPropertyMappingService.ValidOderByMappingExistsFor``2(System.String)">
+            <summary>
+            Valid mapping exsists from <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>
+            </summary>
+            <typeparam name="TSource">From object</typeparam>
+            <typeparam name="TDestination">To object</typeparam>
+            <param name="fields">fields to find in valid mappings</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.IPropertyMappingService.ValidFilterByMappingExistsFor``2(System.String)">
+            <summary>
+             Valid mapping exsists from <typeparamref name="TSource"/> to <typeparamref name="TDestination"/>
+             Seperates string into Propertyname,operation,value
+            </summary>
+            <typeparam name="TSource">From object</typeparam>
+            <typeparam name="TDestination">To object</typeparam>
+            <param name="fields">fields to find in valid mappings</param>
+            <returns>boolean</returns>
+        </member>
+        <member name="T:SitrepAPI.Services.IUserInformationService">
+            <summary>
+            User Information service
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.IUserInformationService.GetUserInformationAsync(System.String)">
+            <summary>
+            Get Auth0 user information
+            </summary>
+            <param name="userId">Id of User</param>
+            <returns> returns <see cref="T:SitrepAPI.Models.Auth0.Auth0UserDTO"/> </returns>
+        </member>
+        <member name="T:SitrepAPI.Services.PropertyCheckerService">
+            <summary>
+            Implementation of Propertry checking service
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.PropertyCheckerService.TypeHasProperties``1(System.String)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.IPropertyCheckerService.TypeHasProperties``1(System.String)"/>
+            </summary>
+            <typeparam name="T">Object type</typeparam>
+            <param name="fields">Properties to check for</param>
+            <returns>Bool</returns>
+        </member>
+        <member name="T:SitrepAPI.Services.PropertyMapping`2">
+            <summary>
+            Implementation of PropertyMapping service <see cref="T:SitrepAPI.Services.IPropertyMappingService"/>
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TDestination"></typeparam>
+        </member>
+        <member name="P:SitrepAPI.Services.PropertyMapping`2.MappingDictionary">
+            <summary>
+            Valid mappings
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.PropertyMapping`2.#ctor(System.Collections.Generic.Dictionary{System.String,SitrepAPI.Services.PropertyMappingValue})">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="mappingDictionary"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:SitrepAPI.Services.PropertyMappingService">
+            <summary>
+            Implementation of <see cref="T:SitrepAPI.Services.IPropertyMappingService"/>
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.PropertyMappingService.#ctor">
+            <summary>
+            Constructor of class
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.PropertyMappingService.ValidOderByMappingExistsFor``2(System.String)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.IPropertyMappingService.ValidOderByMappingExistsFor``2(System.String)"/>
+            </summary>
+            <typeparam name="TSource">From object</typeparam>
+            <typeparam name="TDestination">To object</typeparam>
+            <param name="fields">fields to find in valid mappings</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.PropertyMappingService.ValidFilterByMappingExistsFor``2(System.String)">
+            <summary>
+            <see cref="M:SitrepAPI.Services.IPropertyMappingService.ValidFilterByMappingExistsFor``2(System.String)"/>
+            </summary>
+            <typeparam name="TSource">From object</typeparam>
+            <typeparam name="TDestination">To object</typeparam>
+            <param name="fields">fields to find in valid mappings</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:SitrepAPI.Services.PropertyMappingService.GetPropertyMapping``2">
+            <summary>
+            <see cref="M:SitrepAPI.Services.IPropertyMappingService.GetPropertyMapping``2"/>
+            </summary>
+            <typeparam name="TSource">From object</typeparam>
+            <typeparam name="TDestination">To object</typeparam>
+            <returns>Dictionary of string, propermappingvalue</returns>
+            <exception cref="T:System.Exception">No valid mappings for <typeparamref name="TSource"/> to <typeparamref name="TDestination"/></exception>
+        </member>
+        <member name="T:SitrepAPI.Services.PropertyMappingValue">
+            <summary>
+            Found matching property mappings class
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Services.PropertyMappingValue.DestinationProperties">
+            <summary>
+            Property names
+            </summary>
+        </member>
+        <member name="P:SitrepAPI.Services.PropertyMappingValue.Revert">
+            <summary>
+            Apply in reverse direction
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.PropertyMappingValue.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Boolean)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="destinationProperties">Propertynames</param>
+            <param name="revert">Apply in reverse direction</param>
+            <exception cref="T:System.ArgumentNullException">Dependency Injection failure</exception>
+        </member>
+        <member name="T:SitrepAPI.Services.UserInformationService">
+            <summary>
+            Service to get information about Auth0 user
+            </summary>
+        </member>
+        <member name="M:SitrepAPI.Services.UserInformationService.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor of class
+            </summary>
+            <param name="memoryCache">In memory cache service</param>
+            <param name="configuration">Configuration service</param>
+            <exception cref="T:System.ArgumentNullException">Dependency injection fail to provide services requested</exception>
+        </member>
+        <member name="M:SitrepAPI.Services.UserInformationService.GetUserInformationAsync(System.String)">
+            <summary>
+            Gets Auth0 user information via API endpoint
+            </summary>
+            <param name="userId">Id of user</param>
+            <returns>Auth0 user</returns>
+            <exception cref="T:System.ArgumentNullException">failure to convert http response to object</exception>
+        </member>
+    </members>
+</doc>
